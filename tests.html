@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style type="text/css">
+        .selected > rect {
+          fill: green !important;
+        }
+        .selected > line {
+          stroke: green !important;
+        }
+      </style>
+  </head>
+  <body>
+    <div id="track1"></div>
+    <div id="track2"></div>
+    <div id="track3"></div>
+    <div id="track4"></div>
+    <div id="track5"></div>
+
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="../ui/waves-ui.umd.js"></script>
+    <script type="text/javascript" src="annotator-track-ui.js"></script>
+    <script type="text/javascript">
+
+      function randomColor(alpha) {
+          var R = ~~(Math.random() * 255);
+          var G = ~~(Math.random() * 255);
+          var B = ~~(Math.random() * 255);
+          return 'rgba(' + [ R, G, B, alpha || 1 ] + ')';
+      }
+
+      var beatsSrc2 = "../beat-grid-editor/07.%20Around%20The%20World.json";
+      var audioSrc2 = "../beat-grid-editor/07.%20Around%20The%20World.mp3";
+      var audioCtx = new AudioContext();
+
+      /*
+       * track-ui.js tests
+       */
+      var height = 100;
+      var domEl1 = document.getElementById('track1');
+      var domEl2 = document.getElementById('track2');
+      var domEl3 = document.getElementById('track3');
+      var domEl4 = document.getElementById('track4');
+      var domEl5 = document.getElementById('track5');
+      var width = domEl1.getBoundingClientRect().width;
+      var duration;
+      var pixelsPerSecond;
+      var timeline;
+      var trackUI1;
+      var trackUI2;
+
+      load_audio_data(audioCtx, audioSrc2, beatsSrc2, function(audioBuffer, beatsData) {
+        duration = audioBuffer.duration;
+        pixelsPerSecond = width / duration;
+        timeline = new wavesUI.core.Timeline(pixelsPerSecond, width);
+
+        trackUI1 = new AnnotatorTrackUI("at1", timeline, domEl1, height);
+        trackUI2 = new AnnotatorTrackUI("at2", timeline, domEl2, height);
+        trackUI3 = new AnnotatorTrackUI("at3", timeline, domEl3, height);
+        trackUI4 = new AnnotatorTrackUI("at4", timeline, domEl4, height);
+        trackUI5 = new AnnotatorTrackUI("at5", timeline, domEl5, height);
+
+        for (var i=0; i<beatsData.length; i++) {
+          beatsData[i] = beatsData[i][0];
+        }
+
+        trackUI1.set_beat_grid(beatsData);
+        trackUI1.toggle('beat-grid', true);
+        trackUI1.set_audio_buffer(audioBuffer.getChannelData(0));
+        trackUI1.toggle('waveform', true);
+
+        trackUI2.set_beat_grid(beatsData);
+        trackUI2.toggle('beat-grid', true);
+        // trackUI2.set_audio_buffer(audioBuffer.getChannelData(0));
+        // trackUI2.toggle('waveform', true);
+
+        trackUI3.set_beat_grid(beatsData);
+        trackUI3.toggle('beat-grid', true);
+        // trackUI3.set_audio_buffer(audioBuffer.getChannelData(0));
+        // trackUI3.toggle('waveform', true);
+
+        trackUI4.set_beat_grid(beatsData);
+        trackUI4.toggle('beat-grid', true);
+        // trackUI4.set_audio_buffer(audioBuffer.getChannelData(0));
+        // trackUI4.toggle('waveform', true);
+
+        trackUI5.set_beat_grid(beatsData);
+        trackUI5.toggle('beat-grid', true);
+        // trackUI5.set_audio_buffer(audioBuffer.getChannelData(0));
+        // trackUI5.toggle('waveform', true);
+      });
+      
+
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+  </head>
+  <body>
+    <script type="text/javascript" src="libs/zepto.js"></script>
+    <script type="text/javascript" src="libs/underscore.js"></script>
+    <script type="text/javascript" src="libs/backbone.js"></script>
+    <script type="text/javascript" src="models/annotation.js"></script>
+    <script type="text/javascript" src="models/annotations-track.js"></script>
+    <script type="text/javascript" src="models/annotations-board.js"></script>
+    <script type="text/javascript" src="models/feedback.js"></script>
+    <script type="text/javascript">
+      
+      var protoSync = Backbone.sync;
+
+      Backbone.sync = function(method, model, options) {  
+        options || (options = {});
+
+        console.log([method, model, options]);
+        
+        return protoSync(method, model, options);
+        
+      };
+      
+
+
+      // var board = new AnnotationsBoard();
+    </script>
+    
+  </body>
+</html>
