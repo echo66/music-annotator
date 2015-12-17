@@ -1,0 +1,26 @@
+## CRIAR UM USER:
+
+	PREFIX mcuser: <http://www.mixcollective.com/ontologies/sys/users>
+	PREFIX mc: <http://www.mixcollective.com>
+	PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns>
+
+	INSERT { 
+		?userIRI rdf:type mcuser:User ;
+				 mcuser:username ?username .
+	}
+	WHERE { bind(IRI(concat("mc:", STRUUID())) as ?userIRI) }
+
+
+## ADICIONAR UM LOG PARA UMA PESQUISA:
+	
+	PREFIX mcsys: <http://www.mixcollective.com/ontologies/sys/users>
+
+	INSERT {
+		?action a mcsys:UserAction .
+	}
+	
+## ADICIONAR UM FOLLOW:
+
+	INSERT {
+		
+	}

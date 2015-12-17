@@ -1,0 +1,161 @@
+var board = new AnnotationsBoard({ id: 'annboard1', title: 'board nº1', creator: 'bruno-dias'});
+board.create
+
+a1 = new Annotation({id: 'a1', creator: 'bruno-dias', title: 'anotação nº1'});
+a1.add_feedback('catia-ferreira', 'muito bom', 5);
+
+
+
+
+
+
+var boards = new AnnotationsBoards;
+var b1 = boards.create({
+	title: 'board nº1', 
+	description: 'primeira anotação multi-track para a música'
+});
+b1.add_track('track nº1', 'primeira track de anotação para a b1');
+b1.add_track('track nº2', 'segunda track de anotação para a b1');
+b1.add_track('track nº3', 'terceira track de anotação para a b1');
+
+
+
+
+
+{
+	id: MA-ID, 
+	music-id : String, 
+
+}
+
+
+{
+	task-type: 
+		<> Mistura
+		<> Re-Mistura
+		<> ReEdit
+		<> Mashup
+		<> FreeMixing
+		<> AssociationSeeking
+			<> Segment Association
+			<> Song Association
+			<> Performance Context Association
+
+		<> Anotar uma música só com um tipo de annotation track ou de annotation.
+		<> Dar feedback a: 
+			<> tipo de anotações ou de tracks.
+			<> tipos de música (classico, encher chouriço, abertura de set)
+			<> misturas
+			<> playsets
+}
+
+{ 
+	request: task, 
+	request-id: String,
+	
+}
+
+
+
+{
+	id: String, 
+	t0: Number, 
+	t1 (opt): Number,
+	types:
+	custom: {
+		'title' : String,
+		'description' : 
+	}
+}
+
+
+
+{
+	"@context": {
+		"mcanns" : "http://mixcollective.com/ontologies/annotation#"
+	},
+	"@id":
+	"@type": "mcanns:AnnotationTrack",
+	"dc:title": STRING
+	"dc:description": STRING
+	""
+
+}
+
+
+
+QUERIES A IMPLEMENTAR:
+
+	<> Obter as classes de anotações de 1+ utilizador.
+	<> Obter as classes de tracks de anotações de 1+ utilizador.
+	<> Obter as anotações de uma track de anotações.
+	<> Obter as tracks de anotação de uma board.
+	<> Obter as boards de 1+ utilizador.
+	<> Obter as anotações relativas a uma música.
+	<> Obter as boards relativas a uma música.
+	<> Obter as músicas (i.e. ficheiros) anotadas por um utilizador.
+	<> Contar o número de anotações de cada classe, para um utilizador.
+
+
+	<> Inserir uma board nova:
+
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX mcann: <http://www.mixcollective.com/annotations/board/>
+		INSERT {
+			ID_BOARD <rdf:type> mcann:AnnotationsBoard .
+			ID_BOARD <> 
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+OBTER AS CLASSES DE ANOTAÇÕES DE UM UTILIZADOR
+
+SELECT ?annsType 
+WHERE {
+	?annsType rdf:type owl:Class,
+			 rdfs:subClassOf mcann:Annotation
+			 dc:creator ID_USER
+}
+
+
+
+OBTER AS CLASSES DE TRACKS DE ANOTAÇÕES DE UM UTILIZADOR
+
+SELECT ?annsTracksType 
+WHERE {
+	?annType rdf:type owl:Class,
+			 rdfs:subClassOf mcann:Annotation
+			 dc:creator ID_USER
+}
+
+
+DELETE {
+
+	?board ?p1 ?o1 .
+	?o2 ?p2 ?board .
+
+	?track ?p3 ?o3 .
+	?o4 ?p4 ?track .
+
+	?annotation ?p5 ?o5 .
+	?o6 ?p6 ?annotation .
+
+}
+WHERE {
+	?board a ann:AnnotationsBoard . 
+	?track a ann:AnnotationsTrack . 
+	?annotation a ann:Annotation . 
+
+	?board ?p1 ?o1 .
+	?o2 ?p2 ?board .
+}

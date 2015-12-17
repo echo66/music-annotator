@@ -2,6 +2,7 @@ var Annotation = Backbone.Model.extend({
 	urlRoot: '/annotations/annotation',
 	defaults: {
 		id: undefined,
+		musicId: undefined,
 		creator: undefined,
 		title: undefined,
 		description: undefined, 

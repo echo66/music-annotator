@@ -1,7 +1,8 @@
 var AnnotationsBoard = Backbone.Model.extend({
-	urlRoot: 'http://localhost:90/server/annotations/board',
+	urlRoot: 'http://localhost:90/api/boards',
 	defaults: {
 		id: undefined,
+		musicId: undefined,
 		creator: undefined,
 		title: undefined,
 		description: undefined,
@@ -18,6 +19,12 @@ var AnnotationsBoard = Backbone.Model.extend({
 				return Backbone.Model.prototype.get.call(this, attr);
 		}
 	},
+	parse: function(response) {
+		response.id = response._id;
+		delete response._id;
+
+		return response;
+	},
 	initialize: function(attrs, options) {
 		this.set('annotations-tracks', new AnnotationsTracks);
 		this.set('feedback', new Feedbacks);
@@ -30,15 +37,15 @@ var AnnotationsBoard = Backbone.Model.extend({
 			rate: rate
 		});
 	},
-	add_annotations_track: function(title, description) {
-		this.get('annotations-tracks').create({
+	add_track: function(title, description) {
+		this.get('tracks').create({
 			boardId: this.get('id'),
 			title: title, 
 			description: description
 		});
 	},
 	add_annotation: function(annTrackId, annObj) {
-		this.get('annotations-tracks').get(annTrackId).create({
+		this.get('tracks').get(annTrackId).create({
 			trackId: annTrackId, 
 			title: annObj.title, 
 			description: annObj.description,
@@ -50,5 +57,5 @@ var AnnotationsBoard = Backbone.Model.extend({
 
 var AnnotationsBoards = Backbone.Collection.extend({
 	model: AnnotationsBoard, 
-	urlRoot: 'http://localhost:90/server/annotations/board'
+	urlRoot: 'http://localhost:90/api/boards'
 });

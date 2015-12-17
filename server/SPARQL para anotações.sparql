@@ -1,0 +1,35 @@
+## CRIAR UMA ANOTAÇÃO: 
+	PREFIX mcuser: <http://www.mixcollective.com/ontologies/sys/users#>
+	PREFIX mcents: <http://www.mixcollective.com/entities#>
+	PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+	INSERT {
+		?ANN a mcann:Annotation ;
+				mcann:time ?TIME ;
+				mcann:duration ?DURATION ;
+				mcann:creation_date now() ;
+				dc:title ?TITLE ;
+				dc:description ?DESCRIPTION ; 
+				dc:creator ?USER .
+	}
+	WHERE { bind(IRI(concat("mcents:", STRUUID())) as ?ANN) }
+
+## ADICIONAR UM TIPO À ANOTAÇÃO:
+
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+	INSERT {
+		?ANN a ?ANNTYPE .
+	}
+	WHERE {
+		?ANNTYPE rdfs:subClassOf mcann:Annotation .
+	}
+
+## REMOVER UM TIPO DA ANOTAÇÃO:
+
+	PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+	DELETE {
+		?ANN a ?ANNTYPE .
+	} 
+	WHERE {
+		?ANNTYPE rdfs:subClassOf mcann:Annotation .
+	}

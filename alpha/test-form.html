@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+  </head>
+  <body>
+    <script type="text/javascript" src="../libs/zepto.js"></script>
+    <script type="text/javascript" src="../libs/underscore.js"></script>
+    <script type="text/javascript" src="../libs/backbone.js"></script>
+    <script type="text/javascript" src="form.js"></script>
+    <script type="text/javascript">
+      var fields = [
+        { id: 'uri', label: 'IRI', value: 'ianna:a1', static: true },
+        { id: 'dc:title', label: 'Title', value: 'title for annotation 1' },
+        { id: 'dc:description', label: 'Description', value: 'title for annotation 1' }
+      ];
+
+      var form = new Form(fields);
+
+
+
+      function types_form(type) {
+
+        var fields = [];
+        if (type) 
+          fields.push({ id: 'uri', label: 'ID: ', value: type.id, disabled: true });
+        fields.push({ id: 'dc:title', label: 'Title : ', value: (type)? type.get('title') : '' });
+        fields.push({ id: 'dc:description', label: 'Description: ', (type)? type.get('description') : '' });
+        fields.push({ id: 'rdf:type', label: 'Subtype of: ', (type)? type.get('parent-type') : '' });
+        fields.push({ id: 'owl:disjointWith', label: 'Disjoint with: ', (type)? type.get('disjoint-types') : '' });
+
+        var form = new Form(fields);
+
+        form.on("submit", function(dialog) {
+          var values form.get_values();
+          // TODO
+          form.close();
+        });
+
+        form.on("cancel", function(dialog) {
+          form.close();
+        });
+
+        form.open();
+
+      }
+
+      function annotations_form(ann) {
+
+        var fields = [];
+        if (ann) 
+          fields.push({ id: 'uri', label: 'ID: ', value: ann.get('id'), disabled: true });
+        fields.push({ id: 'dc:title', label: 'Title : ', value: (ann)? ann.get('title') : '' });
+        fields.push({ id: 'dc:description', label: 'Description: ', (ann)? ann.get('description') : '' });
+        fields.push({ id: 'oann:time', label: 'Time : ', value: (ann)? ann.get('time') : '', disabled: true });
+        fields.push({ id: 'oann:duration', label: 'Duration: ', (ann)? ann.get('duration') : '', disabled: true });
+        fields.push({ id: 'rdf:type', label: 'Type: ',  })
+
+        var form = new Form(fields);
+
+        form.on("submit", function(dialog) {
+          var values form.get_values();
+          // TODO
+          form.close();
+        });
+
+        form.on("cancel", function(dialog) {
+          form.close();
+        });
+
+        form.open();
+
+      }
+
+      
+
+
+    </script>
+    
+  </body>
+</html>

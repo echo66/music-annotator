@@ -1,0 +1,30 @@
+## CRIAR UMA BOARD
+	PREFIX mcuser: <http://www.mixcollective.com/ontologies/sys/users>
+	PREFIX mcann: <http://www.mixcollective.com/ontologies/sys/annotations>
+	PREFIX dc: <http://purl.org/dc/elements/1.1/>
+	INSERT {
+		?board a mcann:AnnotationsBoard;
+				dc:title ?title;
+				dc:description ?description;
+				dc:creator ?userIRI;
+				mcann:creation_date now() .
+	}
+	WHERE { 
+		BIND(IRI(concat("mc:", STRUUID())) as ?board) 
+	}
+
+## REMOVER UMA BOARD
+	## TODO
+
+
+## OBTER AS TRACKS RELACIONADAS COM UMA BOARD
+SELECT ?track 
+WHERE { ?board mcann:has_annotations_track ?track . }
+
+
+## OBTERE AS ANOTAÇÕES RELACIONADAS COM TRACKS DE UMA BOARD
+SELECT ?ann
+WHERE { 
+	?track mcann:has_annotation ?ann .
+	?board mcann:has_annotations_track ?track . 
+}

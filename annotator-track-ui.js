@@ -69,36 +69,37 @@ function AnnotatorTrackUI(id, timeline, domEl, height) {
 	}
 
 	var _init_grid_layer = function(timeline, layerHeight, timeContext) {
-		_beatGridLayer = new wavesUI.axis.AxisLayer(_grid_callback, {
+		// _beatGridLayer = new wavesUI.axis.AxisLayer(_grid_callback, {
+		// 	height: layerHeight,
+		// 	// top: timeAxisHeight
+		// });
+
+		// _beatGridLayer.setTimeContext(timeline.timeContext);
+		// _beatGridLayer.configureShape(wavesUI.shapes.Ticks, {}, { color: DEFAULT_BEAT_GRID_COLOR });
+
+		// _track.add(_beatGridLayer);
+
+
+
+		_beatGridLayer = new wavesUI.core.Layer('collection', [], {
 			height: layerHeight,
-			// top: timeAxisHeight
+			displayHandlers: false
 		});
 
-		_beatGridLayer.setTimeContext(timeline.timeContext);
-		_beatGridLayer.configureShape(wavesUI.shapes.Ticks, {}, { color: DEFAULT_BEAT_GRID_COLOR });
-
-		_track.add(_beatGridLayer);
-
-
-
-		// _beatGridLayer = new wavesUI.core.Layer('collection', [], {
-		// 	height: layerHeight
-		// });
-
-		// _beatGridLayer.setTimeContext(timeContext);
-		// _beatGridLayer.configureShape(wavesUI.shapes.Marker, {
-		// 	x: function(d, v) {
-		// 		if (v !== undefined) { d.t0 = v; }
-		// 		return d.t0;
-		// 	},
-		// 	color: function() {
-		// 		return DEFAULT_BEAT_GRID_COLOR;
-		// 	}
-		// });
+		_beatGridLayer.setTimeContext(timeContext);
+		_beatGridLayer.configureShape(wavesUI.shapes.Marker, {
+			x: function(d, v) {
+				if (v !== undefined) { d.t0 = v; }
+				return d.t0;
+			},
+			color: function() {
+				return DEFAULT_BEAT_GRID_COLOR;
+			}
+		});
 
 		// _beatGridLayer.setBehavior(new wavesUI.behaviors.MarkerBehavior());
 
-		// _track.add(_beatGridLayer);
+		_track.add(_beatGridLayer);
 
 	}
 
@@ -231,7 +232,7 @@ function AnnotatorTrackUI(id, timeline, domEl, height) {
 		for (var i in beatData) {
 			this._beatData[i] = {t0: beatData[i]};
 		}
-		// _beatGridLayer.data = this._beatData;
+		_beatGridLayer.data = this._beatData;
 		_update_layer(_beatGridLayer);
 	}
 
@@ -241,6 +242,7 @@ function AnnotatorTrackUI(id, timeline, domEl, height) {
 			case 'center' : _followCenter(newTime, _timeCursorLayer); break;
 			case 'edge-left': _followEdgeLeft(newTime, _timeCursorLayer); break;
 			case 'edge-right': _followEdgeRight(newTime, _timeCursorLayer); break;
+			default: _timeline.tracks.update();
 		}
 	}
 
@@ -643,57 +645,5 @@ function AnnotatorTrackUI(id, timeline, domEl, height) {
 		}
 
 	}
-
-	// function DragSelectionInteractions() {
-
-	// 	function remove_selected_items(layer) {
-	// 		var selectedItems = layer.selectedItems
-	// 		var data = layer.data;
-	// 		for (var i in selectedItems) {
-	// 			var item = selectedItems[i];
-	// 			var datum = layer.getDatumFromItem(item);
-	// 			var index = data.findIndex(function(a) { return a == datum; });
-	// 			data.splice(index, 1);
-	// 		}
-
-	// 		layer.data = [];
-	// 		_update_layer(layer);
-
-	// 		layer.data = data;
-	// 		_update_layer(layer);
-	// 	}
-
-	// 	this.onKeyDown = function(e) {
-	// 		if (e.keyCode == 46) { // DELETE
-	// 			remove_selected_items(_instantsLayer);
-	// 			remove_selected_items(_intervalsLayer);
-	// 		} else if (e.keyCode == 65 && e.ctrlKey) { // Ctrl + A
-	// 			_instantsLayer.select(_instantsLayer.items);
-	// 			_intervalsLayer.select(_intervalsLayer.items);
-	// 		}
-	// 	}
-
-	// 	this.onMouseDown = function(time, e) {
-	// 		var currentTrack = this.timeline.getTrackFromDOMElement(e.target);
-	// 		if (!this._currentTrack) { return; }
-
-	// 		this._addBrush(_track);
-
-	// 		// recreate the map
-	// 		this._layerSelectedItemsMap = new Map();
-	// 		this._currentTrack.layers.forEach((layer) => {
-	// 			this._layerSelectedItemsMap.set(layer, layer.selectedItems.slice(0));
-	// 		});
-	// 	}
-
-	// 	this.onMouseDrag = function(time, e) {
-
-	// 	}
-
-	// 	this.onMouseUp = function(time, e) {
-
-	// 	}
-
-	// }
 
 }

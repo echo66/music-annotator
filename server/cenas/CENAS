@@ -1,0 +1,186 @@
+var jsonld = require('jsonld');
+
+var ld = {
+  "@context": {
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "ex": "http://example.org/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ex:contains": {
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "http://example.org/library",
+      "@type": "ex:Library",
+      "ex:contains": "http://example.org/library/the-republic"
+    },
+    {
+      "@id": "http://example.org/library/the-republic",
+      "@type": "ex:Book",
+      "dc:creator": "Plato",
+      "dc:title": "The Republic",
+      "ex:contains": "http://example.org/library/the-republic#introduction"
+    },
+    {
+      "@id": "http://example.org/library/the-republic#introduction",
+      "@type": "ex:Chapter",
+      "dc:description": "An introductory chapter on The Republic.",
+      "dc:title": "The Introduction"
+    }
+  ]
+};
+
+
+@prefix lib
+
+<http://example.org/library/the-republic#introduction> <http://purl.org/dc/elements/1.1/description> "An introductory chapter on The Republic." .
+<http://example.org/library/the-republic#introduction> <http://purl.org/dc/elements/1.1/title> "The Introduction" .
+<http://example.org/library/the-republic#introduction> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Chapter> .
+<http://example.org/library/the-republic> <http://example.org/vocab#contains> <http://example.org/library/the-republic#introduction> .
+<http://example.org/library/the-republic> <http://purl.org/dc/elements/1.1/creator> "Plato" .
+<http://example.org/library/the-republic> <http://purl.org/dc/elements/1.1/title> "The Republic" .
+<http://example.org/library/the-republic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Book> .
+<http://example.org/library> <http://example.org/vocab#contains> <http://example.org/library/the-republic> .
+<http://example.org/library> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Library> .
+
+
+
+var nquads_ = nquads;
+jsonld.toRDF(ld, {format: 'application/nquads'}, function(err, nquads) {
+  console.log(nquads);
+  nquads_ = nquads;
+});
+
+
+jsonld.fromRDF(rdf, {format: 'application/nquads'}, function(err, doc) {
+  // doc is JSON-LD
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var jsonld = require('jsonld');
+
+
+var nquads = ['@prefix dc: <http://purl.org/dc/elements/1.1/>',
+'',
+'<http://example.org/library/the-republic#introduction> <dc:description> "An introductory chapter on The Republic." .',
+'<http://example.org/library/the-republic#introduction> <dc:title> "The Introduction" .',
+'<http://example.org/library/the-republic#introduction> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Chapter> .',
+'<http://example.org/library/the-republic> <http://example.org/vocab#contains> <http://example.org/library/the-republic#introduction> .',
+'<http://example.org/library/the-republic> dc:creator "Plato" .',
+'<http://example.org/library/the-republic> dc:title "The Republic" .',
+'<http://example.org/library/the-republic> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Book> .',
+'<http://example.org/library> <http://example.org/vocab#contains> <http://example.org/library/the-republic> .',
+'<http://example.org/library> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/vocab#Library> .'].join(' ');
+
+
+jsonld.fromRDF(nquads, {format: 'application/nquads'}, function(err, doc) {
+  console.log(doc);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@prefix : <http://www.mxc.com/ont/sys/annotations/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix log: <http://www.w3.org/2000/10/swap/log#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+:Annotation a owl:Class . 
+
+:AnnotationsTrack a owl:Class . 
+
+:AnnotationsBoard a owl:Class . 
+
+
+
+
+:annotation a owl:ObjectProperty .
+
+:track a owl:ObjectProperty .
+
+:track owl:inverseOf :annotation .
+
+
+
+:Piano a owl:Class.
+
+:Percussion a owl:Class;
+            rdfs:subClassOf :Annotation .
+
+:NonPercussion a owl:Class;
+            rdfs:subClassOf :Annotation .
+
+:Percussion owl:disjointWith :NonPercussion .
+
+
+
+:PercussionTrack rdfs:subClassOf :AnnotationsTrack ,
+                                    [ a owl:Restriction ;
+                                      owl:onProperty :annotation ;
+                                      owl:allValuesFrom :Percussion 
+                                    ] .
+
+:t1 a :PercussionTrack .
+
+:a1 a :Annotation .
+
+:a1 :track :t1 .

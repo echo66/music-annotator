@@ -2,6 +2,7 @@ var AnnotationsTrack = Backbone.Model.extend({
 	urlRoot: '/annotations/annotations-track',
 	defaults: {
 		id: undefined,
+		musicId: undefined,
 		creator: undefined,
 		boardId: undefined,
 		title: undefined,

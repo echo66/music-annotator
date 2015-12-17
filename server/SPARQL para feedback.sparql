@@ -1,0 +1,14 @@
+## ADICIONAR FEEDBACK
+
+INSERT {
+	?FDB a mcsys:Feedback .
+
+}
+# Tipos de feedback: comentário, like, rating, comentário + like, comentário + rating
+
+Feedback dc:description "..."
+			dc:creator
+			mc:response_to Feedback
+			mc:rate
+			mc:min_rate
+			mc:max_rate

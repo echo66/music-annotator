@@ -1,0 +1,59 @@
+<http://www.mixcollective.com/entities/29ed3a8d-567c-45e1-80cc-4e17584c0d75>	rdf:type	<http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard> . 
+<http://www.mixcollective.com/entities/78df650d-7737-4a89-a6db-d34c0e68271d>	rdf:type	<http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard> . 
+<http://www.mixcollective.com/entities/ab4a6edd-4e0d-4708-bf87-622c20bce21e>	rdf:type	<http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard> . 
+
+
+[
+	{
+		subject: {type: "IRI", value: "http://www.mixcollective.com/entities/29ed3a8d-567c-45e1-80cc-4e17584c0d75" },
+		predicate: {type: "IRI", value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
+		object: {type: "IRI", value: "http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard" }
+	},
+	{
+		subject: {type: "IRI", value: "http://www.mixcollective.com/entities/78df650d-7737-4a89-a6db-d34c0e68271d" },
+		predicate: {type: "IRI", value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
+		object: {type: "IRI", value: "http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard" }
+	},
+	{
+		subject: {type: "IRI", value: "http://www.mixcollective.com/entities/ab4a6edd-4e0d-4708-bf87-622c20bce21e" },
+		predicate: {type: "IRI", value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
+		object: {type: "IRI", value: "http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard" }
+	},
+]
+
+
+
+
+
+var context = {
+	"ont" : "http://www.mixcollective.com/ontologies/sys/annotations/", 
+	"rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
+	"ent" : "http://www.mixcollective.com/entities/"
+}
+
+var triples = {
+  "@default": [{
+    subject: {type: "IRI", value: "http://www.mixcollective.com/entities/29ed3a8d-567c-45e1-80cc-4e17584c0d75" },
+    predicate: {type: "IRI", value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
+    object: {type: "IRI", value: "http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard" }
+  },
+  {
+    subject: {type: "IRI", value: "http://www.mixcollective.com/entities/78df650d-7737-4a89-a6db-d34c0e68271d" },
+    predicate: {type: "IRI", value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
+    object: {type: "IRI", value: "http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard" }
+  },
+  {
+    subject: {type: "IRI", value: "http://www.mixcollective.com/entities/ab4a6edd-4e0d-4708-bf87-622c20bce21e" },
+    predicate: {type: "IRI", value: "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
+    object: {type: "IRI", value: "http://www.mixcollective.com/ontologies/sys/annotations/AnnotationsBoard" }
+  }],
+};
+var R;
+jsonld.fromRDF(triples, { format: true, useNativeTypes: true, rdfParser: function (x) { return x; }},
+               function (error, result) { R = result; console.log(JSON.stringify(result, null, '  ')); });
+
+
+
+jsonld.compact(R, context, function(err, compacted) {
+  console.log(JSON.stringify(compacted, null, 2));
+});

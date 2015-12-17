@@ -23,7 +23,14 @@
     <script type="text/javascript" src="utils.js"></script>
     <script type="text/javascript" src="../ui/waves-ui.umd.js"></script>
     <script type="text/javascript" src="annotator-track-ui.js"></script>
+    <script type="text/javascript" src="annotations-tracks-board.js"></script>
     <script type="text/javascript">
+
+
+
+      function create_track_slot(mainContainer) {
+        mainContainer
+      }
 
       function randomColor(alpha) {
           var R = ~~(Math.random() * 255);
@@ -51,46 +58,23 @@
       var timeline;
       var trackUI1;
       var trackUI2;
+      var board;
 
       load_audio_data(audioCtx, audioSrc2, beatsSrc2, function(audioBuffer, beatsData) {
         duration = audioBuffer.duration;
         pixelsPerSecond = width / duration;
         timeline = new wavesUI.core.Timeline(pixelsPerSecond, width);
 
-        trackUI1 = new AnnotatorTrackUI("at1", timeline, domEl1, height);
-        trackUI2 = new AnnotatorTrackUI("at2", timeline, domEl2, height);
-        trackUI3 = new AnnotatorTrackUI("at3", timeline, domEl3, height);
-        trackUI4 = new AnnotatorTrackUI("at4", timeline, domEl4, height);
-        trackUI5 = new AnnotatorTrackUI("at5", timeline, domEl5, height);
-
         for (var i=0; i<beatsData.length; i++) {
           beatsData[i] = beatsData[i][0];
         }
 
-        trackUI1.set_beat_grid(beatsData);
-        trackUI1.toggle('beat-grid', true);
-        trackUI1.set_audio_buffer(audioBuffer.getChannelData(0));
-        trackUI1.toggle('waveform', true);
+        board = new AnnotationTracksBoardUI('ab1', document.getElementById('track1')); 
+        board.load_audio_buffer(audioBuffer);
+        board.load_beat_grid(beatsData);
+        board.toggle('beat-grid', true);
 
-        trackUI2.set_beat_grid(beatsData);
-        trackUI2.toggle('beat-grid', true);
-        // trackUI2.set_audio_buffer(audioBuffer.getChannelData(0));
-        // trackUI2.toggle('waveform', true);
-
-        trackUI3.set_beat_grid(beatsData);
-        trackUI3.toggle('beat-grid', true);
-        // trackUI3.set_audio_buffer(audioBuffer.getChannelData(0));
-        // trackUI3.toggle('waveform', true);
-
-        trackUI4.set_beat_grid(beatsData);
-        trackUI4.toggle('beat-grid', true);
-        // trackUI4.set_audio_buffer(audioBuffer.getChannelData(0));
-        // trackUI4.toggle('waveform', true);
-
-        trackUI5.set_beat_grid(beatsData);
-        trackUI5.toggle('beat-grid', true);
-        // trackUI5.set_audio_buffer(audioBuffer.getChannelData(0));
-        // trackUI5.toggle('waveform', true);
+        board._init_board_controls();
       });
       
 

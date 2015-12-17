@@ -1,0 +1,19 @@
+/mixes/
+/mixes/:id/
+/mixes/:id/annotations
+/mixes/:id/automation
+/mixes/:id/tracks
+/mixes/:id/tracks/annotations
+/mixes/:id/tracks/:id/automation
+/mixes/:id/tracks/:id/segments
+/mixes/:id/comments
+/mixes/:id/rates
+
+
+{ track-id, start-time, end-time, music-id, music-start, music-end, num-beats }
+
+{ track-id, device, parameter, start-time, end-time, type }
+
+
+
+No master: volume, tempo, balance
